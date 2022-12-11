@@ -1,0 +1,42 @@
+{
+  "ModId": "FlatOut2.Utils.ModLoader",
+  "ModName": "FlatOut 2 Mod Loader",
+  "ModAuthor": "Sewer56",
+  "ModVersion": "1.0.0",
+  "ModDescription": "Adds support for loading BFS files from Reloaded mods, as well as loose files.",
+  "ModDll": "FlatOut2.Utils.ModLoader.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/FlatOut2.Utils.ModLoader.dll",
+  "ModR2RManagedDll64": "x64/FlatOut2.Utils.ModLoader.dll",
+  "ModNativeDll32": "",
+  "ModNativeDll64": "",
+  "Tags": [],
+  "CanUnload": null,
+  "HasExports": null,
+  "IsLibrary": false,
+  "ReleaseMetadataFileName": "FlatOut2.Utils.ModLoader.ReleaseMetadata.json",
+  "PluginData": {
+    "GitHubDependencies": {
+      "IdToConfigMap": {
+        "reloaded.sharedlib.hooks": {
+          "Config": {
+            "UserName": "Sewer56",
+            "RepositoryName": "Reloaded.SharedLib.Hooks.ReloadedII",
+            "UseReleaseTag": true,
+            "AssetFileName": "reloaded.sharedlib.hooks.zip"
+          },
+          "ReleaseMetadataName": "Sewer56.Update.ReleaseMetadata.json"
+        }
+      }
+    }
+  },
+  "IsUniversalMod": false,
+  "ModDependencies": [
+    "reloaded.sharedlib.hooks"
+  ],
+  "OptionalDependencies": [],
+  "SupportedAppId": [
+    "flatout2.exe"
+  ],
+  "ProjectUrl": ""
+}

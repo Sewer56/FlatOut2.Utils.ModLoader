@@ -1,0 +1,3 @@
+[submodule "Submodules/FlatOut2.SDK"]
+	path = Submodules/FlatOut2.SDK
+	url = https://github.com/Sewer56/FlatOut2.SDK.git
