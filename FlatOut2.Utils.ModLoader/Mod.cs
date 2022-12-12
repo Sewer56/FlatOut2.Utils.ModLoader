@@ -44,6 +44,7 @@ public class Mod : ModBase // <= Do not Remove.
         var modConfigs  = modLoader.GetActiveMods().Select(x => x.Generic);
         _redirector           = new Redirector(modConfigs, modLoader);
         _redirectorController = new RedirectorController(_redirector);
+        BfsLoader.Init(modConfigs, modLoader, _logger, hooks!);
         FileAccessServer.Initialize(_redirector, _redirectorController, _logger);
         FileAccessServer.SetConfiguration(context.Configuration);
         
@@ -52,13 +53,28 @@ public class Mod : ModBase // <= Do not Remove.
         modLoader.ModUnloading += ModUnloading;
     }
     
-    private void ModLoading(IModV1 mod, IModConfigV1 config)   => _redirector.Add(config);
-    private void ModUnloading(IModV1 mod, IModConfigV1 config) => _redirector.Remove(config);
+    private void ModLoading(IModV1 mod, IModConfigV1 config)
+    {
+        _redirector.Add(config);
+        BfsLoader.AddMod(config);
+    }
+
+    private void ModUnloading(IModV1 mod, IModConfigV1 config)
+    {
+        _logger.WriteLineAsync($"[ModLoader] Unloading mod. Please note this does not unload mod BFSes, just loose files.");
+        _redirector.Remove(config);
+        BfsLoader.RemoveMod(config);
+    }
 
     #region Standard Overrides
     public override bool CanSuspend() => true;
-    public override bool CanUnload() => true;
-    public override void Suspend() => FileAccessServer.Disable();
+    public override bool CanUnload() => false;
+    public override void Suspend()
+    {
+        _logger.WriteLineAsync($"[ModLoader] Suspending. Please note this does not unload mod BFSes, just loose files.");
+        FileAccessServer.Disable();
+    }
+
     public override void Resume() => FileAccessServer.Enable();
 
     public override void ConfigurationUpdated(Config configuration)

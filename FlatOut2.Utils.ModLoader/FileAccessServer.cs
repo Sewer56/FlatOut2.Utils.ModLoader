@@ -1,11 +1,8 @@
-﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using FlatOut2.SDK.Functions;
 using FlatOut2.SDK.Utilities;
 using Reloaded.Hooks.Definitions;
-using Reloaded.Hooks.ReloadedII.Interfaces;
-using Reloaded.Memory.Pointers;
 using Reloaded.Mod.Interfaces;
 
 namespace FlatOut2.Utils.ModLoader;

@@ -71,7 +71,7 @@ public class Redirector
         return false;
     }
 
-    private string GetRedirectFolder(string modId) => _modLoader.GetDirectoryForModId(modId) + "\\BFS";
+    private string GetRedirectFolder(string modId) => _modLoader.GetDirectoryForModId(modId) + "\\Files";
     
     public void Disable() => _isDisabled = true;
     public void Enable() => _isDisabled = false;
