@@ -75,7 +75,7 @@ jobs:
         }
         
     - name: Build
-      run: ./Publish.ps1 -ChangelogPath "$env:PUBLISH_CHANGELOG_PATH" -BuildR2R true
+      run: ./Publish.ps1 -ChangelogPath "$env:PUBLISH_CHANGELOG_PATH" -BuildR2R true -ReadmePath "./README-LOADER.md"
       
     - name: Upload GitHub Release Artifact
       uses: actions/upload-artifact@v2.2.4

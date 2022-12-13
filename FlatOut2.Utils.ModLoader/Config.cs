@@ -31,7 +31,8 @@ public class Config : Configurable<Config>
     public bool PrintLoadedFiles { get; set; } = false;
     
     [DisplayName("Print Redirections")]
-    [Description("Prints files replaced by the mod to console.")]
+    [Description("Prints files replaced by the mod to console.\n" +
+                 "Applies to unpacked files only.")]
     [DefaultValue(false)]
     public bool PrintRedirections { get; set; } = false;
 }

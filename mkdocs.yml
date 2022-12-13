@@ -1,0 +1,30 @@
+site_name: FlatOut 2 Mod Loader Documentation
+site_url: https://sewer56.dev/FlatOut2.Utils.ModLoader
+
+repo_name: Sewer56/FlatOut2.Utils.ModLoader
+repo_url: https://github.com/Sewer56/FlatOut2.Utils.ModLoader
+
+markdown_extensions:
+  - admonition
+  - tables
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences 
+  - pymdownx.tasklist
+  - def_list
+  - meta
+  - md_in_html
+  - attr_list
+  - footnotes
+
+theme:
+  name: material
+  palette:
+    primary: red
+    accent: red
+    scheme: slate
+    
+nav:
+  - Home: index.md  
+  - Usage: usage.md  
+  - FAQ: faq.md
