@@ -3,7 +3,7 @@
 FlatOut 2 Mod Loader is a [Reloaded II](https://reloaded-project.github.io/Reloaded-II/) based solution for loading mods.  
 For more information, [please visit the documentation](https://sewer56.dev/FlatOut2.Utils.ModLoader/), it's cool.  
 
-Patch files are a thing of the past. [Usage guide here.](https://sewer56.dev/FlatOut2.Utils.ModLoader/usage.md)
+Patch files are a thing of the past. [Usage guide here.](https://sewer56.dev/FlatOut2.Utils.ModLoader/usage)
 
 # Features
 
