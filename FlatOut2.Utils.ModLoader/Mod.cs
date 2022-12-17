@@ -1,4 +1,5 @@
 ﻿using FlatOut2.Utils.ModLoader.Interfaces;
+using FlatOut2.Utils.ModLoader.Patches.Menu;
 using FlatOut2.Utils.ModLoader.Template;
 using Reloaded.Mod.Interfaces;
 using Reloaded.Mod.Interfaces.Internal;
@@ -39,6 +40,9 @@ public class Mod : ModBase // <= Do not Remove.
 
         // Init FlatOut SDK
         SDK.SDK.Init(hooks!);
+        
+        // Apply patches
+        SupportCompressedMenuCarSkinsPatch.Init(hooks!);
         
         // Mod Logic Here
         var modConfigs  = modLoader.GetActiveMods().Select(x => x.Generic);
