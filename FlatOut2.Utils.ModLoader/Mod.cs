@@ -1,4 +1,5 @@
 ﻿using FlatOut2.Utils.ModLoader.Interfaces;
+using FlatOut2.Utils.ModLoader.Patches.Compression;
 using FlatOut2.Utils.ModLoader.Patches.Load;
 using FlatOut2.Utils.ModLoader.Patches.Menu;
 using FlatOut2.Utils.ModLoader.Template;
@@ -45,6 +46,7 @@ public class Mod : ModBase // <= Do not Remove.
         // Apply patches
         SupportCompressedMenuCarSkinsPatch.Init(hooks!);
         IncreaseLoadBufferSizePatch.Init(context.Configuration);
+        SupportCustomCompressionPatch.Init(hooks!);
         
         // Mod Logic Here
         var modConfigs  = modLoader.GetActiveMods().Select(x => x.Generic);
