@@ -9,8 +9,8 @@ namespace FlatOut2.Utils.ModLoader.Patches.Menu;
 /// </summary>
 public static class SupportCompressedMenuCarSkinsPatch
 {
-    private static IAsmHook _loadCompressedModelHook;
-    private static IAsmHook _loadCompressedSkinHook;
+    private static IAsmHook _loadCompressedModelHook = null!;
+    private static IAsmHook _loadCompressedSkinHook = null!;
 
     public static void Init(IReloadedHooks hooks)
     {

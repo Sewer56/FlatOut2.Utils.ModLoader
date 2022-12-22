@@ -12,9 +12,9 @@ namespace FlatOut2.Utils.ModLoader.Patches.Compression;
 
 public static class SupportCustomCompressionPatch
 {
-    private static IAsmHook _storeCompressedFileHook;
-    private static IAsmHook _initCompressedFileHook;
-    private static IHook<Zlib.InflateFnPtr> _inflateHook;
+    private static IAsmHook _storeCompressedFileHook = null!;
+    private static IAsmHook _initCompressedFileHook = null!;
+    private static IHook<Zlib.InflateFnPtr> _inflateHook = null!;
     private static unsafe ZSTD_DCtx* _zstdContext;
 
     public static unsafe void Init(IReloadedHooks hooks)
