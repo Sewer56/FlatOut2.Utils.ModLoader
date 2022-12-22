@@ -18,6 +18,8 @@ For more information, [please visit the documentation](https://sewer56.dev/FlatO
 - Load custom BFSes from your mods.  
 - Log all file loads.  
 - Log all replaced file loads.  
+- Improves load times for all files.  
+- Adds support for ZStd compressed BFSes for smaller size + better loads.  
 
 # Building
 

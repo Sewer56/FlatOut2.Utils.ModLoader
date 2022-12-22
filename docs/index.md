@@ -15,7 +15,9 @@ FlatOut 2 Mod Loader is a [Reloaded II](https://reloaded-project.github.io/Reloa
 - Load custom unpacked files from Reloaded II mods (even with packed game!!).  
 - Load custom BFSes from your mods.  
 - Log all file loads.  
-- Log all replaced file loads.  
+- Log all replaced file loads.
+- Improves load times for all files.
+- Adds support for ZStd compressed BFSes for smaller size + better loads.
 
 # Building
 
