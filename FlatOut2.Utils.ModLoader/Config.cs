@@ -35,6 +35,16 @@ public class Config : Configurable<Config>
                  "Applies to unpacked files only.")]
     [DefaultValue(false)]
     public bool PrintRedirections { get; set; } = false;
+
+
+    [DisplayName("Buffer Size")]
+    [Description("Size of buffer for read operations from disk. Each number represents a power of 2, i.e.\n" +
+                 "15: 32K Reads\n" +
+                 "16: 64K Reads\n" +
+                 "17: 128K Reads\n" +
+                 "etc. Vanilla game uses 15. Do not change unless you know what you're doing.")]
+    [DefaultValue(17)]
+    public int ReadBufferSizeBits { get; set; } = 17;
 }
 
 /// <summary>
