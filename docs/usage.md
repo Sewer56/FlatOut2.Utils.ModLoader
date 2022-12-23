@@ -13,10 +13,6 @@ Follow the guidance in the [Reloaded wiki](https://reloaded-project.github.io/Re
 
 ### Download Mod Loader
 
-!!! note
-
-    This image needs updated.
-
 If you don't have it already, download the `FlatOut 2 Mod Loader` Mod from the `Download Mods` section.  
 
 ![DownloadMod](./images/DownloadMod.png)
@@ -73,7 +69,7 @@ The connectors `└─` represent folders.
 !!! info
 
     To release mods, you should pack them into `.bfs` files, as this will improve load times.  
-    Use [Bfs2Pack 2.1](https://www.mediafire.com/file/88pz29ram2gjeyw/BFSpack_V2.1.zip/file), open `bfs2pack_smart_gui.exe`, drag your mod's `data` over bugbear icon.  
+    [Use my fork of BfsTool](https://cdn.discordapp.com/attachments/846790579542163467/1055607108097278072/bfstool.zip), and drag your mod's `data` over `build-fo2-modloader-bfs.bat`.  
 
 Make a folder called `BFS`, and inside that folder place your BFS files.  
 
@@ -96,7 +92,7 @@ The connectors `└─` represent folders.
 !!! note
 
     When multiple BFS files are found in the folder, they will be loaded in alphabetical order.  
-    i.e. `00_menus.bfs` will be loaded before `01_music.bfs` because `00` comes before `01`.  
+    i.e. `00_menus.bfs` will be loaded before `01_music.bfs` because `00` comes before `01`.
 
 ### Publish Your Mod
 
