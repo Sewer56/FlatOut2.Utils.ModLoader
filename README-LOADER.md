@@ -10,9 +10,10 @@ Patch files are a thing of the past. [Usage guide here.](https://sewer56.dev/Fla
 - Load custom unpacked files from Reloaded II mods (even with packed game!!).  
 - Load custom BFSes from your mods.  
 - Log all file loads.  
-- Log all replaced file loads.
-- Improves load times for all files.
-- Adds support for ZStd compressed BFSes for smaller size + better loads.
+- Log all replaced file loads.  
+- Improves load times for all files.  
+- Adds support for ZStd compressed BFSes for smaller size + better loads.  
+Improved read speeds of content in BFS.  
 
 # Building
 
