@@ -69,7 +69,7 @@ The connectors `└─` represent folders.
 !!! info
 
     To release mods, you should pack them into `.bfs` files, as this will improve load times.  
-    [Use my fork of BfsTool](https://cdn.discordapp.com/attachments/846790579542163467/1055607108097278072/bfstool.zip), and drag your mod's `data` over `build-fo2-modloader-bfs.bat`.  
+    [Use my fork of BfsTool](https://cdn.discordapp.com/attachments/846790579542163467/1055952657006735360/bfstool.zip), and drag your mod's `data` over `build-fo2-modloader-bfs.bat`.  
 
 Make a folder called `BFS`, and inside that folder place your BFS files.  
 

@@ -21,7 +21,7 @@ This guide shows how to repack game's stock BFS files to use the new improved BF
 
 !!! info
 
-    [Download my fork of BfsTool](https://cdn.discordapp.com/attachments/846790579542163467/1055607108097278072/bfstool.zip).
+    [Download my fork of BfsTool](https://cdn.discordapp.com/attachments/846790579542163467/1055952657006735360/bfstool.zip).
 
 ![BfsToolUnpacked](./images/BfsToolUnpacked.png)
 
