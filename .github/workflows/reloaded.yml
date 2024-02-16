@@ -46,13 +46,18 @@ jobs:
         shell: pwsh
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
         submodules: 'recursive'
         
+    - name: Setup .NET Core SDK (5.0)
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 5.0.x
+
     - name: Setup .NET Core SDK (7.0)
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 7.0.x
         
@@ -78,7 +83,7 @@ jobs:
       run: ./Publish.ps1 -ChangelogPath "$env:PUBLISH_CHANGELOG_PATH" -BuildR2R true -ReadmePath "./README-LOADER.md"
       
     - name: Upload GitHub Release Artifact
-      uses: actions/upload-artifact@v2.2.4
+      uses: actions/upload-artifact@v4
       with:
         # Artifact name
         name: GitHub Release
@@ -87,7 +92,7 @@ jobs:
           ${{ env.PUBLISH_GITHUB_PATH }}/*
           
     - name: Upload GameBanana Release Artifact
-      uses: actions/upload-artifact@v2.2.4
+      uses: actions/upload-artifact@v4
       with:
         # Artifact name
         name: GameBanana Release
@@ -96,7 +101,7 @@ jobs:
           ${{ env.PUBLISH_GAMEBANANA_PATH }}/*
         
     - name: Upload NuGet Release Artifact
-      uses: actions/upload-artifact@v2.2.4
+      uses: actions/upload-artifact@v4
       with:
         # Artifact name
         name: NuGet Release
@@ -105,7 +110,7 @@ jobs:
           ${{ env.PUBLISH_NUGET_PATH }}/*
         
     - name: Upload Changelog Artifact
-      uses: actions/upload-artifact@v2.2.4
+      uses: actions/upload-artifact@v4
       with:
         # Artifact name
         name: Changelog
@@ -114,7 +119,7 @@ jobs:
         retention-days: 0
     
     - name: Upload to GitHub Releases (on Tag)
-      uses: softprops/action-gh-release@v0.1.14
+      uses: softprops/action-gh-release@v1
       if: env.IS_RELEASE == 'true'
       with:
         # Path to load note-worthy description of changes in release from
