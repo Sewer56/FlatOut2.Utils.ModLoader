@@ -12,11 +12,14 @@ namespace FlatOut2.Utils.ModLoader.Patches.Compression;
 
 public static class SupportCustomCompressionPatch
 {
+    private static IAsmHook _finishDecompressionHook = null!;
     private static IAsmHook _storeCompressedFileHook = null!;
     private static IAsmHook _initCompressedFileHook = null!;
     private static IHook<Zlib.InflateFnPtr> _inflateHook = null!;
     private static unsafe ZSTD_DCtx* _zstdContext;
 
+    // WARN. NOT THREAD SAFE.
+    
     public static unsafe void Init(IReloadedHooks hooks)
     {
         var utils = hooks.Utilities;
@@ -27,7 +30,7 @@ public static class SupportCustomCompressionPatch
             
             // Store method for other hook
             $"mov al, [ebx]",
-            $"mov [esi+404Ch], al" // stored as zlib msg, cleared if init as zlib
+            $"mov [esi+404Ch], al" // stored as zlib msg field, cleared if init as zlib
             
         }, 0x5604B1, new AsmHookOptions()
         {
@@ -40,7 +43,7 @@ public static class SupportCustomCompressionPatch
         {
             "use32",
 
-            // Get Method
+            // Get Method (Compression Setting)
             $"mov al, [esi+404Ch]", // depends on other hook
 
             // Try ZStd
@@ -61,6 +64,30 @@ public static class SupportCustomCompressionPatch
             Behaviour = AsmHookBehaviour.DoNotExecuteOriginal
         }).Activate();
         
+        // Finish decompression hook
+        // Replaces original call, adds ZStd Support.
+        _finishDecompressionHook = hooks.CreateAsmHook(new[]
+        {
+            "use32",
+
+            // Try ZStd
+            "cmp dword [esi + 0x30], 0",
+            "jne tryzlib",
+            $"{utils.GetAbsoluteCallMnemonics((nint)utils.GetFunctionPointer(typeof(SupportCustomCompressionPatch), nameof(FinishZStd)), false)}",
+            $"jmp exit",
+
+            "tryzlib:",
+            // Else default to original.
+            $"{utils.GetAbsoluteCallMnemonics(0x5F7E90, false)}", // inflateEnd
+            "exit:"
+
+        }, 0x5605A6, new AsmHookOptions()
+        {
+            MaxOpcodeSize = 5,
+            PreferRelativeJump = true,
+            Behaviour = AsmHookBehaviour.DoNotExecuteOriginal
+        }).Activate();
+        
         // Decompress hook
         _inflateHook = Zlib.Inflate.HookAs<Zlib.InflateFnPtr>(typeof(SupportCustomCompressionPatch), nameof(Inflate)).Activate();
     }
@@ -68,8 +95,15 @@ public static class SupportCustomCompressionPatch
     [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
     public static unsafe int InitZStd(ZlibStream* zlibStream, byte* zlibVersion, int headerSize)
     {
-        ZSTD_resetDStream(_zstdContext);
+        ZSTD_resetDStream(_zstdContext); // alias for ZSTD_DCtx_reset
         zlibStream->Adler = (int)CompressionType.Zstd;
+        return 0;
+    }
+    
+    [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+    public static unsafe int FinishZStd(ZlibStream* zlibStream)
+    {
+        ZSTD_resetDStream(_zstdContext);
         return 0;
     }
     
