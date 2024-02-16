@@ -1,9 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using FlatOut2.SDK.Functions;
 using Reloaded.Hooks.Definitions;
 using Reloaded.Hooks.Definitions.Enums;
+using Reloaded.Memory.Pointers;
 using Reloaded.Universal.Redirector.Structures;
 using SharpZstd.Interop;
 using static SharpZstd.Interop.Zstd;
@@ -16,14 +17,13 @@ public static class SupportCustomCompressionPatch
     private static IAsmHook _storeCompressedFileHook = null!;
     private static IAsmHook _initCompressedFileHook = null!;
     private static IHook<Zlib.InflateFnPtr> _inflateHook = null!;
-    private static unsafe ZSTD_DCtx* _zstdContext;
+    private static ConcurrentQueue<Ptr<ZSTD_DCtx>> _availableDecompressors = new();
 
     // WARN. NOT THREAD SAFE.
     
     public static unsafe void Init(IReloadedHooks hooks)
     {
         var utils = hooks.Utilities;
-        _zstdContext = ZSTD_createDStream();
         _storeCompressedFileHook = hooks.CreateAsmHook(new[]
         {
             "use32",
@@ -43,8 +43,8 @@ public static class SupportCustomCompressionPatch
         {
             "use32",
 
-            // Get Method (Compression Setting)
-            $"mov al, [esi+404Ch]", // depends on other hook
+            // Get Method (Compression Setting) from ZLIB 'msg' field.
+            $"mov al, [esi+404Ch]", // depends on _storeCompressedFileHook
 
             // Try ZStd
             "test al, 8",
@@ -95,7 +95,11 @@ public static class SupportCustomCompressionPatch
     [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
     public static unsafe int InitZStd(ZlibStream* zlibStream, byte* zlibVersion, int headerSize)
     {
-        ZSTD_resetDStream(_zstdContext); // alias for ZSTD_DCtx_reset
+        var context = _availableDecompressors.TryDequeue(out var dq) 
+            ? dq.Pointer 
+            : ZSTD_createDStream();
+        
+        zlibStream->Message = (byte*)context;
         zlibStream->Adler = (int)CompressionType.Zstd;
         return 0;
     }
@@ -103,7 +107,9 @@ public static class SupportCustomCompressionPatch
     [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
     public static unsafe int FinishZStd(ZlibStream* zlibStream)
     {
-        ZSTD_resetDStream(_zstdContext);
+        var context = (ZSTD_DCtx*)zlibStream->Message;
+        ZSTD_DCtx_reset(context, ZSTD_ResetDirective.ZSTD_reset_session_only);
+        _availableDecompressors.Enqueue(context); // context is available again!
         return 0;
     }
     
@@ -114,7 +120,7 @@ public static class SupportCustomCompressionPatch
         {
             var outputBuf = new ZSTD_outBuffer { dst = stream->NextOut, pos = 0, size = (nuint)stream->AvailableOut };
             var inputBuf = new ZSTD_inBuffer { src = stream->NextIn, pos = 0, size = (nuint)stream->AvailableIn };
-            ZSTD_decompressStream(_zstdContext, &outputBuf, &inputBuf);
+            ZSTD_decompressStream((ZSTD_DCtx*)stream->Message, &outputBuf, &inputBuf);
             
             stream->TotalIn += (int)inputBuf.pos;
             stream->NextIn += inputBuf.pos;

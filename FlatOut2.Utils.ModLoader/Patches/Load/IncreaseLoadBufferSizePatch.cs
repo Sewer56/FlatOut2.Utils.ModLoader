@@ -1,5 +1,6 @@
-﻿using Reloaded.Memory.Kernel32;
-using Reloaded.Memory.Sources;
+﻿using Reloaded.Memory;
+using Reloaded.Memory.Enums;
+using Reloaded.Memory.Interfaces;
 
 namespace FlatOut2.Utils.ModLoader.Patches.Load;
 
@@ -7,7 +8,7 @@ public static class IncreaseLoadBufferSizePatch
 {
     public static unsafe void Init(Config config)
     {
-        Memory.Instance.ChangePermission(0x559760, 4096, Kernel32.MEM_PROTECTION.PAGE_EXECUTE_READWRITE);
+        Memory.Instance.ChangeProtection(0x559760, 4096, MemoryProtection.ReadWriteExecute);
         int bufferSize = 1 << config.ReadBufferSizeBits;
         
         *(int*)(0x55980E) = config.ReadBufferSizeBits; // second read buffer offset

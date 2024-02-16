@@ -42,9 +42,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reloaded.Mod.Interfaces" Version="2.3.0" ExcludeAssets="runtime" />
+    <PackageReference Include="Reloaded.Hooks.Definitions" Version="1.15.0" />
+    <PackageReference Include="Reloaded.Mod.Interfaces" Version="2.4.0" ExcludeAssets="runtime" />
     <PackageReference Include="Reloaded.SharedLib.Hooks" Version="1.9.0" ExcludeAssets="runtime" />
-    <PackageReference Include="SharpZstd.Interop" Version="1.5.2-beta2" />
+    <PackageReference Include="SharpZstd.Interop" Version="1.5.5-beta1" />
   </ItemGroup>
 
   <ItemGroup>
