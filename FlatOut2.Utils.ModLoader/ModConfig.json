@@ -2,7 +2,7 @@
   "ModId": "FlatOut2.Utils.ModLoader",
   "ModName": "FlatOut 2 Mod Loader",
   "ModAuthor": "Sewer56",
-  "ModVersion": "1.1.2",
+  "ModVersion": "1.1.3",
   "ModDescription": "Adds support for loading BFS files from Reloaded mods, as well as loose files.",
   "ModDll": "FlatOut2.Utils.ModLoader.dll",
   "ModIcon": "Preview.png",
@@ -11,8 +11,8 @@
   "ModNativeDll32": "",
   "ModNativeDll64": "",
   "Tags": [],
-  "CanUnload": null,
-  "HasExports": null,
+  "CanUnload": false,
+  "HasExports": false,
   "IsLibrary": false,
   "ReleaseMetadataFileName": "FlatOut2.Utils.ModLoader.ReleaseMetadata.json",
   "PluginData": {
@@ -28,6 +28,18 @@
           "ReleaseMetadataName": "Sewer56.Update.ReleaseMetadata.json"
         }
       }
+    },
+    "GitHubRelease": {
+      "UserName": "FlatOut2.Utils.ModLoader",
+      "RepositoryName": "Sewer56",
+      "UseReleaseTag": true,
+      "AssetFileName": "Mod.zip"
+    },
+    "NuGet": {
+      "AllowUpdateFromAnyRepository": false,
+      "DefaultRepositoryUrls": [
+        "http://packages.sewer56.moe:5000/v3/index.json"
+      ]
     }
   },
   "IsUniversalMod": false,
