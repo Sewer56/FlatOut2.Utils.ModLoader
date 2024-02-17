@@ -1,6 +1,7 @@
 ﻿using FlatOut2.Utils.ModLoader.Interfaces;
 using FlatOut2.Utils.ModLoader.Patches.Compression;
 using FlatOut2.Utils.ModLoader.Patches.Load;
+using FlatOut2.Utils.ModLoader.Patches.Lua;
 using FlatOut2.Utils.ModLoader.Patches.Menu;
 using FlatOut2.Utils.ModLoader.Template;
 using Reloaded.Mod.Interfaces;
@@ -47,9 +48,10 @@ public class Mod : ModBase // <= Do not Remove.
         SupportCompressedMenuCarSkinsPatch.Init(hooks!);
         IncreaseLoadBufferSizePatch.Init(context.Configuration);
         SupportCustomCompressionPatch.Init(hooks!);
+        IncreaseLuaMemoryLimit.Init(context.Configuration, hooks!);
         
         // Mod Logic Here
-        var modConfigs  = modLoader.GetActiveMods().Select(x => x.Generic);
+        var modConfigs = modLoader.GetActiveMods().Select(x => x.Generic);
         _redirector           = new Redirector(modConfigs, modLoader);
         _redirectorController = new RedirectorController(_redirector);
         BfsLoader.Init(modConfigs, modLoader, _logger, hooks!);

@@ -45,6 +45,13 @@ public class Config : Configurable<Config>
                  "etc. Vanilla game uses 15. Do not change unless you know what you're doing.")]
     [DefaultValue(17)]
     public int ReadBufferSizeBits { get; set; } = 17;
+    
+    [DisplayName("Buffer Size")]
+    [Description("Size of available memory to Lua for storing its objects.\n" +
+                 "etc. Vanilla game uses 0x300000 (3145728). We triple this number." +
+                 "Do not change unless you know what you're doing.")]
+    [DefaultValue(0x900000)]
+    public int LuaMemoryLimit { get; set; } = 0x900000;
 }
 
 /// <summary>
