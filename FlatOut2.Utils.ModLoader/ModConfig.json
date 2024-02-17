@@ -2,7 +2,7 @@
   "ModId": "FlatOut2.Utils.ModLoader",
   "ModName": "FlatOut 2 Mod Loader",
   "ModAuthor": "Sewer56",
-  "ModVersion": "1.1.1",
+  "ModVersion": "1.1.2",
   "ModDescription": "Adds support for loading BFS files from Reloaded mods, as well as loose files.",
   "ModDll": "FlatOut2.Utils.ModLoader.dll",
   "ModIcon": "Preview.png",
